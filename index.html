@@ -9,23 +9,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:        #0a0a0f;
-      --black-soft:   #0f0f16;
-      --petrol:       #1a4a5c;
-      --petrol-mid:   #1e5a70;
-      --petrol-light: #236b85;
-      --blue-light:   #4db8d4;
-      --blue-lighter: #7ed0e4;
-      --blue-pale:    #b8eaf5;
-      --white:        #f0f8fb;
-      --gray:         #8899a6;
+      --bg:         #0B0F19;
+      --bg-card:    #111827;
+      --white:      #F7F8FA;
+      --blue:       #3B82F6;
+      --graphite:   #1F2937;
+      --gray:       #9CA3AF;
+      --highlight:  #22D3EE;
+      --border:     rgba(59,130,246,0.12);
+      --border-h:   rgba(34,211,238,0.3);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--black);
+      background: var(--bg);
       color: var(--white);
       overflow-x: hidden;
     }
@@ -38,19 +37,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 6%;
-      background: rgba(10,10,15,0.88);
+      padding: 1.2rem 7%;
+      background: rgba(11,15,25,0.9);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(77,184,212,0.1);
+      border-bottom: 1px solid rgba(59,130,246,0.1);
     }
 
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: -0.5px;
       color: var(--white);
     }
-    .logo span { color: var(--blue-light); }
+    .logo span { color: var(--highlight); }
 
     .nav-links {
       display: flex;
@@ -60,24 +59,28 @@
     .nav-links a {
       color: var(--gray);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: color 0.25s;
+      transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--blue-light); }
+    .nav-links a:hover { color: var(--white); }
 
     .btn-nav {
-      padding: 0.6rem 1.5rem;
-      border: 1.5px solid var(--blue-light);
-      border-radius: 40px;
-      color: var(--blue-light);
-      font-size: 0.88rem;
+      padding: 0.55rem 1.4rem;
+      border: 1px solid rgba(59,130,246,0.5);
+      border-radius: 6px;
+      color: var(--blue);
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       background: transparent;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .btn-nav:hover { background: var(--blue-light); color: var(--black); }
+    .btn-nav:hover {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
 
     /* ── HERO ── */
     .hero {
@@ -87,39 +90,28 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 10rem 6% 6rem;
+      padding: 10rem 7% 6rem;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 800px; height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(77,184,212,0.15) 0%, transparent 68%);
-      top: -160px; left: 50%;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 420px; height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(26,74,92,0.55) 0%, transparent 70%);
-      bottom: -60px; right: -80px;
-      pointer-events: none;
-    }
-
-    /* grid lines decorativas */
     .hero-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(77,184,212,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(77,184,212,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 900px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(59,130,246,0.1) 0%, transparent 65%);
+      top: 0; left: 50%;
+      transform: translateX(-50%);
       pointer-events: none;
     }
 
@@ -127,28 +119,29 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.4rem 1.1rem;
-      border: 1px solid rgba(77,184,212,0.35);
-      border-radius: 30px;
-      font-size: 0.77rem;
+      padding: 0.35rem 1rem;
+      border: 1px solid rgba(34,211,238,0.25);
+      border-radius: 4px;
+      font-size: 0.72rem;
       font-weight: 600;
-      color: var(--blue-light);
-      background: rgba(77,184,212,0.07);
+      color: var(--highlight);
+      background: rgba(34,211,238,0.06);
       margin-bottom: 2rem;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       position: relative;
       z-index: 1;
     }
-    .badge .dot {
-      width: 7px; height: 7px;
+
+    .badge-dot {
+      width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--blue-light);
-      animation: pulse 2s infinite;
+      background: var(--highlight);
+      animation: blink 2.5s infinite;
     }
-    @keyframes pulse {
+    @keyframes blink {
       0%,100% { opacity: 1; }
-      50%      { opacity: 0.25; }
+      50%      { opacity: 0.2; }
     }
 
     .hero h1 {
@@ -156,18 +149,22 @@
       font-weight: 900;
       line-height: 1.08;
       letter-spacing: -2.5px;
-      max-width: 860px;
+      max-width: 820px;
       margin-bottom: 1.5rem;
       position: relative;
       z-index: 1;
+      color: var(--white);
     }
-    .hero h1 .accent { color: var(--blue-light); }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--highlight);
+    }
 
     .hero > p {
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
       color: var(--gray);
-      max-width: 580px;
-      line-height: 1.8;
+      max-width: 560px;
+      line-height: 1.85;
       margin-bottom: 3rem;
       position: relative;
       z-index: 1;
@@ -183,366 +180,363 @@
     }
 
     .btn-primary {
-      padding: 0.95rem 2.4rem;
-      border-radius: 50px;
+      padding: 0.9rem 2.2rem;
+      border-radius: 6px;
       border: none;
-      background: linear-gradient(135deg, var(--blue-light), var(--petrol-mid));
-      color: #fff;
-      font-size: 1rem;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 32px rgba(77,184,212,0.35);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(77,184,212,0.55); }
+    .btn-primary:hover { background: #2563EB; transform: translateY(-1px); }
 
     .btn-secondary {
-      padding: 0.95rem 2.4rem;
-      border-radius: 50px;
-      border: 1.5px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.04);
-      color: var(--white);
-      font-size: 1rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--gray);
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: border-color 0.25s, background 0.25s;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .btn-secondary:hover { border-color: var(--blue-light); background: rgba(77,184,212,0.08); }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
 
-    /* stats bar */
     .stats-bar {
-      margin-top: 5rem;
+      margin-top: 5.5rem;
       display: flex;
-      gap: 3.5rem;
+      gap: 4rem;
       flex-wrap: wrap;
       justify-content: center;
       position: relative;
       z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 3rem;
+      width: 100%;
+      max-width: 820px;
     }
-    .stat { text-align: center; }
     .stat .number {
-      font-size: 2.3rem;
+      font-size: 2rem;
       font-weight: 900;
-      color: var(--blue-light);
-      line-height: 1;
+      color: var(--white);
       letter-spacing: -1px;
+      line-height: 1;
     }
-    .stat .label { font-size: 0.78rem; color: var(--gray); margin-top: 0.35rem; letter-spacing: 0.3px; }
+    .stat .number span { color: var(--highlight); }
+    .stat .label { font-size: 0.78rem; color: var(--gray); margin-top: 0.4rem; letter-spacing: 0.3px; }
 
-    /* ── SECTION BASE ── */
-    section { padding: 6.5rem 6%; }
+    /* ── SECTIONS ── */
+    section { padding: 7rem 7%; }
 
     .section-label {
-      font-size: 0.73rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 2.5px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--blue-light);
-      margin-bottom: 0.9rem;
+      color: var(--highlight);
+      margin-bottom: 1rem;
     }
     .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
       font-weight: 800;
       line-height: 1.18;
       letter-spacing: -1px;
       margin-bottom: 1rem;
+      color: var(--white);
     }
     .section-sub {
       color: var(--gray);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 580px;
+      font-size: 1rem;
+      line-height: 1.85;
+      max-width: 540px;
     }
 
-    /* ── SOBRE / MISSAO ── */
+    /* ── SOBRE ── */
     #sobre {
-      background: var(--black-soft);
+      background: var(--bg);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
+      gap: 6rem;
+      align-items: start;
     }
     @media (max-width: 860px) { #sobre { grid-template-columns: 1fr; gap: 3rem; } }
 
     .sobre-text p {
       color: var(--gray);
-      font-size: 1.05rem;
-      line-height: 1.85;
+      font-size: 1rem;
+      line-height: 1.9;
       margin-top: 1.2rem;
     }
     .sobre-text p strong { color: var(--white); font-weight: 600; }
 
-    .mvv-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
+    .mvv-list { display: flex; flex-direction: column; gap: 1px; margin-top: 0; }
+
     .mvv-card {
-      padding: 1.5rem 1.8rem;
-      border: 1px solid rgba(77,184,212,0.12);
-      border-radius: 16px;
-      background: rgba(26,74,92,0.12);
-      border-left: 3px solid var(--blue-light);
-      transition: background 0.25s;
+      padding: 1.6rem 2rem;
+      background: var(--bg-card);
+      border-left: 2px solid var(--blue);
+      transition: border-color 0.2s;
     }
-    .mvv-card:hover { background: rgba(26,74,92,0.25); }
+    .mvv-card:first-child { border-radius: 8px 8px 0 0; }
+    .mvv-card:last-child  { border-radius: 0 0 8px 8px; }
+    .mvv-card:hover { border-left-color: var(--highlight); }
+
     .mvv-card h4 {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: var(--blue-light);
-      margin-bottom: 0.5rem;
+      color: var(--blue);
+      margin-bottom: 0.6rem;
     }
-    .mvv-card p { color: var(--gray); font-size: 0.92rem; line-height: 1.65; }
+    .mvv-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.7; }
 
     /* ── SERVICOS ── */
-    #servicos { background: var(--black); }
+    #servicos { background: var(--bg-card); }
 
     .services-grid {
       margin-top: 4rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      overflow: hidden;
     }
 
     .card {
-      background: linear-gradient(145deg, rgba(26,74,92,0.22), rgba(10,10,15,0.75));
-      border: 1px solid rgba(77,184,212,0.12);
-      border-radius: 20px;
-      padding: 2.2rem;
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      background: var(--bg-card);
+      padding: 2.5rem;
+      transition: background 0.25s;
       position: relative;
-      overflow: hidden;
     }
+    .card:hover { background: #161d2e; }
     .card::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(77,184,212,0.06), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      top: 0; left: 0;
+      width: 2px; height: 0;
+      background: var(--highlight);
+      transition: height 0.3s;
     }
-    .card:hover { transform: translateY(-6px); border-color: rgba(77,184,212,0.38); box-shadow: 0 24px 55px rgba(0,0,0,0.45); }
-    .card:hover::after { opacity: 1; }
+    .card:hover::after { height: 100%; }
 
-    .card-icon {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--petrol), var(--petrol-light));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.45rem;
-      margin-bottom: 1.4rem;
-      box-shadow: 0 4px 20px rgba(77,184,212,0.18);
+    .card-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+      font-family: 'Courier New', monospace;
     }
-    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; }
-    .card > p { color: var(--gray); font-size: 0.9rem; line-height: 1.75; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--white); }
+    .card > p { color: var(--gray); font-size: 0.88rem; line-height: 1.8; margin-bottom: 1.2rem; }
 
     .card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 0.5rem;
     }
     .tag {
-      padding: 0.25rem 0.7rem;
-      border-radius: 20px;
-      border: 1px solid rgba(77,184,212,0.22);
-      color: var(--blue-lighter);
-      font-size: 0.75rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 3px;
+      border: 1px solid rgba(59,130,246,0.2);
+      color: var(--gray);
+      font-size: 0.72rem;
       font-weight: 500;
-      background: rgba(77,184,212,0.06);
     }
 
-    /* ── CASE INDUSTRIAL ── */
-    #case {
-      background: var(--black-soft);
-    }
+    /* ── CASE ── */
+    #case { background: var(--bg); }
 
     .case-box {
       margin-top: 3.5rem;
-      border: 1px solid rgba(77,184,212,0.2);
-      border-radius: 24px;
-      overflow: hidden;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
     }
     @media (max-width: 760px) { .case-box { grid-template-columns: 1fr; } }
 
     .case-info {
       padding: 3rem;
-      background: linear-gradient(145deg, rgba(26,74,92,0.35), rgba(10,10,15,0.6));
+      background: var(--bg-card);
     }
     .case-info h3 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
+      color: var(--white);
     }
-    .case-info p { color: var(--gray); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+    .case-info > p { color: var(--gray); font-size: 0.92rem; line-height: 1.85; margin-bottom: 2rem; }
 
-    .case-items {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
+    .case-items { display: flex; flex-direction: column; gap: 0.75rem; }
     .case-item {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      font-size: 0.9rem;
-      color: var(--blue-pale);
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #CBD5E1;
     }
-    .case-item::before {
-      content: '';
-      width: 8px; height: 8px;
+    .case-item-dot {
+      width: 5px; height: 5px;
       border-radius: 50%;
-      background: var(--blue-light);
+      background: var(--highlight);
       flex-shrink: 0;
-      box-shadow: 0 0 8px rgba(77,184,212,0.6);
     }
 
     .case-metrics {
       padding: 3rem;
-      background: rgba(10,10,15,0.5);
+      background: #0d1120;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 2rem;
     }
-    .metric-item { border-left: 3px solid var(--blue-light); padding-left: 1.2rem; }
-    .metric-item .m-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.4rem; }
-    .metric-item .m-desc { color: var(--gray); font-size: 0.92rem; line-height: 1.6; }
+    .metric-item { padding-left: 1.2rem; border-left: 2px solid rgba(59,130,246,0.4); }
+    .metric-item:hover { border-left-color: var(--highlight); }
+    .metric-item .m-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.4rem;
+    }
+    .metric-item .m-desc { color: var(--gray); font-size: 0.88rem; line-height: 1.65; }
 
     /* ── METODOLOGIA ── */
-    #metodologia { background: var(--black); }
+    #metodologia { background: var(--bg-card); }
 
     .steps {
       margin-top: 4rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0;
-      position: relative;
-    }
-    .steps::before {
-      content: '';
-      position: absolute;
-      top: 28px; left: 5%; right: 5%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--petrol-light), transparent);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      overflow: hidden;
     }
 
-    .step { text-align: center; padding: 0 1.5rem; position: relative; z-index: 1; }
-    .step-num {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--petrol), var(--blue-light));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; font-weight: 900;
-      margin: 0 auto 1.6rem;
-      box-shadow: 0 0 28px rgba(77,184,212,0.4);
+    .step {
+      padding: 2.5rem 2rem;
+      background: var(--bg-card);
+      transition: background 0.2s;
     }
-    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .step p { color: var(--gray); font-size: 0.87rem; line-height: 1.65; }
+    .step:hover { background: #161d2e; }
+
+    .step-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--highlight);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 1.2rem;
+    }
+    .step h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--white); }
+    .step p { color: var(--gray); font-size: 0.86rem; line-height: 1.7; }
 
     /* ── VALORES ── */
-    #valores { background: var(--black-soft); }
+    #valores { background: var(--bg); }
 
     .valores-grid {
       margin-top: 4rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      overflow: hidden;
     }
     .valor-card {
-      padding: 2rem;
-      border: 1px solid rgba(77,184,212,0.1);
-      border-radius: 18px;
-      background: rgba(26,74,92,0.1);
-      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+      padding: 2.2rem;
+      background: var(--bg);
+      border-bottom: 2px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .valor-card:hover { border-color: rgba(77,184,212,0.32); background: rgba(26,74,92,0.2); transform: translateY(-4px); }
-    .valor-icon {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
+    .valor-card:hover { background: #0f1624; border-bottom-color: var(--blue); }
+    .valor-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
     }
-    .valor-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
-    .valor-card p { color: var(--gray); font-size: 0.88rem; line-height: 1.65; }
+    .valor-card p { color: var(--gray); font-size: 0.86rem; line-height: 1.7; }
 
     /* ── FILOSOFIA ── */
     #filosofia {
-      background: var(--black);
+      background: var(--bg-card);
       text-align: center;
     }
-    .filosofia-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .filosofia-inner blockquote {
-      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-      font-weight: 700;
-      line-height: 1.5;
-      letter-spacing: -0.5px;
+    .filosofia-inner { max-width: 760px; margin: 0 auto; }
+
+    blockquote {
+      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+      font-weight: 600;
+      line-height: 1.6;
       color: var(--white);
       margin: 2.5rem 0;
       padding: 2.5rem 3rem;
-      border: 1px solid rgba(77,184,212,0.18);
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(26,74,92,0.2), rgba(10,10,15,0.5));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      background: var(--bg);
+      letter-spacing: -0.3px;
       position: relative;
     }
-    .filosofia-inner blockquote::before {
-      content: '\201C';
+    blockquote::before {
+      content: '';
       position: absolute;
-      top: -0.5rem; left: 1.5rem;
-      font-size: 6rem;
-      color: rgba(77,184,212,0.15);
-      font-family: Georgia, serif;
-      line-height: 1;
-    }
-    .filosofia-pillars {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2.5rem;
-    }
-    .pillar {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.3rem;
-      border: 1px solid rgba(77,184,212,0.2);
-      border-radius: 30px;
-      background: rgba(77,184,212,0.07);
-      font-size: 0.88rem;
-      color: var(--blue-lighter);
-      font-weight: 500;
-    }
-    .pillar-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--blue-light);
+      top: 0; left: 3rem; right: 3rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
     }
 
-    /* ── CTA ── */
+    .filosofia-pillars {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .pillar {
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--gray);
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pillar:hover { border-color: var(--blue); color: var(--white); }
+
+    /* ── CONTATO ── */
     #contato {
-      background: linear-gradient(135deg, var(--petrol) 0%, var(--black) 100%);
+      background: var(--bg);
       text-align: center;
-      padding: 9rem 6%;
+      padding: 8rem 7%;
       position: relative;
       overflow: hidden;
     }
     #contato::before {
       content: '';
       position: absolute;
-      width: 650px; height: 650px;
+      width: 700px; height: 400px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(77,184,212,0.1) 0%, transparent 65%);
-      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      background: radial-gradient(ellipse, rgba(59,130,246,0.07) 0%, transparent 65%);
+      top: 0; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
     }
+
     #contato h2 {
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 900;
       letter-spacing: -1.5px;
       margin-bottom: 1rem;
@@ -550,9 +544,9 @@
       z-index: 1;
     }
     #contato > p {
-      color: var(--blue-pale);
-      font-size: 1.05rem;
-      margin-bottom: 2.5rem;
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: 3rem;
       position: relative;
       z-index: 1;
     }
@@ -560,48 +554,48 @@
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      max-width: 480px;
+      gap: 0.85rem;
+      max-width: 460px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
     .contact-form input,
     .contact-form textarea {
-      padding: 0.9rem 1.3rem;
-      border-radius: 12px;
-      border: 1px solid rgba(77,184,212,0.22);
-      background: rgba(255,255,255,0.05);
+      padding: 0.85rem 1.2rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--bg-card);
       color: var(--white);
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.25s;
+      transition: border-color 0.2s;
     }
     .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color: var(--gray); }
+    .contact-form textarea::placeholder { color: #4B5563; }
     .contact-form input:focus,
-    .contact-form textarea:focus { border-color: var(--blue-light); }
+    .contact-form textarea:focus { border-color: var(--blue); }
     .contact-form textarea { resize: vertical; min-height: 130px; }
     .contact-form button {
-      padding: 1rem;
-      border-radius: 50px;
+      padding: 0.95rem;
+      border-radius: 6px;
       border: none;
-      background: linear-gradient(135deg, var(--blue-light), var(--petrol-mid));
-      color: #fff;
-      font-size: 1rem;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 32px rgba(77,184,212,0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.3rem;
     }
-    .contact-form button:hover { transform: translateY(-2px); box-shadow: 0 0 55px rgba(77,184,212,0.5); }
+    .contact-form button:hover { background: #2563EB; transform: translateY(-1px); }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--black);
-      border-top: 1px solid rgba(77,184,212,0.08);
-      padding: 3rem 6%;
+      background: #070A12;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem 7%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -609,19 +603,17 @@
       gap: 1.5rem;
     }
     .footer-brand {}
-    .footer-logo { font-size: 1.4rem; font-weight: 900; margin-bottom: 0.3rem; }
-    .footer-logo span { color: var(--blue-light); }
-    .footer-tagline { color: var(--gray); font-size: 0.8rem; }
+    .footer-logo { font-size: 1.2rem; font-weight: 900; color: var(--white); }
+    .footer-logo span { color: var(--highlight); }
+    .footer-tagline { color: #374151; font-size: 0.78rem; margin-top: 0.2rem; }
     .footer-links { display: flex; gap: 2rem; list-style: none; }
-    .footer-links a { color: var(--gray); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--blue-light); }
-    .footer-copy { color: var(--gray); font-size: 0.78rem; }
+    .footer-links a { color: #374151; font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gray); }
+    .footer-copy { color: #374151; font-size: 0.75rem; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .steps::before { display: none; }
-      .steps { gap: 2.5rem; }
       .stats-bar { gap: 2rem; }
     }
   </style>
@@ -644,12 +636,9 @@
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-grid"></div>
-  <div class="badge"><span class="dot"></span> Tecnologia aplicada a transformacao empresarial</div>
-  <h1>
-    Sistemas que pensam<br />
-    <span class="accent">junto com</span><br />
-    a sua empresa
-  </h1>
+  <div class="hero-glow"></div>
+  <div class="badge"><span class="badge-dot"></span> Tecnologia aplicada a transformacao empresarial</div>
+  <h1>Sistemas que pensam<br /><em>junto com</em> a sua empresa</h1>
   <p>
     Criamos sistemas inteligentes e solucoes de automacao personalizadas que organizam dados,
     automatizam processos e ampliam a capacidade operacional do seu negocio.
@@ -659,10 +648,22 @@
     <button class="btn-secondary" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">Conhecer solucoes</button>
   </div>
   <div class="stats-bar">
-    <div class="stat"><div class="number">100%</div><div class="label">Solucoes sob medida</div></div>
-    <div class="stat"><div class="number">+60%</div><div class="label">Ganho de eficiencia operacional</div></div>
-    <div class="stat"><div class="number">24/7</div><div class="label">Funcionarios digitais ativos</div></div>
-    <div class="stat"><div class="number">0</div><div class="label">Software generico entregue</div></div>
+    <div class="stat">
+      <div class="number"><span>100%</span></div>
+      <div class="label">Solucoes sob medida</div>
+    </div>
+    <div class="stat">
+      <div class="number">+<span>60%</span></div>
+      <div class="label">Ganho de eficiencia operacional</div>
+    </div>
+    <div class="stat">
+      <div class="number"><span>24/7</span></div>
+      <div class="label">Funcionarios digitais ativos</div>
+    </div>
+    <div class="stat">
+      <div class="number"><span>0</span></div>
+      <div class="label">Software generico entregue</div>
+    </div>
   </div>
 </section>
 
@@ -670,18 +671,22 @@
 <section id="sobre">
   <div class="sobre-text">
     <p class="section-label">Quem somos</p>
-    <h2 class="section-title">Infraestrutura digital<br />exclusiva para cada empresa</h2>
+    <h2 class="section-title">Infraestrutura digital exclusiva para cada empresa</h2>
     <p>
-      A <strong>GRCode</strong> e uma empresa de tecnologia focada na criacao de sistemas inteligentes e solucoes de automacao personalizadas para empresas.
+      A <strong>GRCode</strong> e uma empresa de tecnologia focada na criacao de sistemas inteligentes
+      e solucoes de automacao personalizadas para empresas.
     </p>
     <p>
-      Nosso objetivo e <strong>transformar dados em direcao estrategica</strong> — criando softwares e estruturas tecnologicas que organizam informacoes, automatizam processos e ampliam a capacidade operacional das organizacoes.
+      Nosso objetivo e <strong>transformar dados em direcao estrategica</strong> — criando softwares
+      e estruturas tecnologicas que organizam informacoes, automatizam processos e ampliam a
+      capacidade operacional das organizacoes.
     </p>
     <p>
-      Em outras palavras: <strong>criamos sistemas que funcionam como multiplos funcionarios digitais dentro da empresa.</strong>
+      Em outras palavras: <strong>criamos sistemas que funcionam como multiplos funcionarios
+      digitais dentro da empresa.</strong>
     </p>
   </div>
-  <div class="mvv-cards">
+  <div class="mvv-list">
     <div class="mvv-card">
       <h4>Missao</h4>
       <p>Transformar empresas por meio da organizacao inteligente de dados, desenvolvimento de sistemas personalizados e aplicacao pratica de inteligencia artificial.</p>
@@ -700,24 +705,22 @@
 <!-- SOLUCOES -->
 <section id="servicos">
   <p class="section-label">O que fazemos</p>
-  <h2 class="section-title">Tres pilares de<br />transformacao empresarial</h2>
-  <p class="section-sub">Cada solucao e desenvolvida para a realidade especifica da sua empresa — nao existem copias, nao existem prateleiras.</p>
+  <h2 class="section-title">Tres pilares de transformacao empresarial</h2>
+  <p class="section-sub">Cada solucao e desenvolvida para a realidade especifica da sua empresa. Nenhuma copia, nenhuma prateleira.</p>
   <div class="services-grid">
-
     <div class="card">
-      <div class="card-icon">&#9881;</div>
+      <div class="card-number">01 / SISTEMAS</div>
       <h3>Desenvolvimento de Sistemas Personalizados</h3>
       <p>Criamos sistemas sob medida para empresas que precisam organizar dados, automatizar rotinas e melhorar a tomada de decisoes.</p>
       <div class="card-tags">
         <span class="tag">Gestao interna</span>
-        <span class="tag">Dashboards inteligentes</span>
+        <span class="tag">Dashboards</span>
         <span class="tag">Plataformas operacionais</span>
         <span class="tag">Controle de processos</span>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-icon">&#128640;</div>
+      <div class="card-number">02 / AUTOMACAO</div>
       <h3>Automacao Empresarial</h3>
       <p>Automatizamos atividades que normalmente exigem trabalho humano repetitivo, liberando seu time para o que realmente importa.</p>
       <div class="card-tags">
@@ -727,11 +730,10 @@
         <span class="tag">Controle operacional</span>
       </div>
     </div>
-
     <div class="card">
-      <div class="card-icon">&#129504;</div>
+      <div class="card-number">03 / INTELIGENCIA ARTIFICIAL</div>
       <h3>Inteligencia Artificial Aplicada</h3>
-      <p>Aplicamos IA para melhorar analise de dados e tomada de decisoes — com casos de uso praticos e resultados mensuraveis.</p>
+      <p>Aplicamos IA para melhorar analise de dados e tomada de decisoes com casos de uso praticos e resultados mensuraveis.</p>
       <div class="card-tags">
         <span class="tag">Analise de desempenho</span>
         <span class="tag">Previsao de padroes</span>
@@ -739,26 +741,24 @@
         <span class="tag">Dados industriais</span>
       </div>
     </div>
-
   </div>
 </section>
 
 <!-- CASE INDUSTRIAL -->
 <section id="case">
   <p class="section-label">Exemplo de aplicacao</p>
-  <h2 class="section-title">Sistema inteligente<br />para industria de tubos</h2>
+  <h2 class="section-title">Sistema inteligente para industria de tubos</h2>
   <p class="section-sub">Um projeto real que demonstra como a GRCode une hardware, dados e IA para transformar operacoes industriais.</p>
-
   <div class="case-box">
     <div class="case-info">
       <h3>Empresa industrial de curvamento de tubos</h3>
       <p>Implementamos um sistema inteligente completo que coleta, processa e analisa dados operacionais em tempo real, gerando relatorios automaticos e auxiliando na tomada de decisoes de qualidade.</p>
       <div class="case-items">
-        <div class="case-item">Sensores industriais integrados ao processo</div>
-        <div class="case-item">Coleta de dados operacionais em tempo real</div>
-        <div class="case-item">Analise das condicoes de producao com IA</div>
-        <div class="case-item">Geracao automatica de relatorios de qualidade</div>
-        <div class="case-item">Avaliacao da margem de erro no curvamento</div>
+        <div class="case-item"><span class="case-item-dot"></span> Sensores industriais integrados ao processo</div>
+        <div class="case-item"><span class="case-item-dot"></span> Coleta de dados operacionais em tempo real</div>
+        <div class="case-item"><span class="case-item-dot"></span> Analise das condicoes de producao com IA</div>
+        <div class="case-item"><span class="case-item-dot"></span> Geracao automatica de relatorios de qualidade</div>
+        <div class="case-item"><span class="case-item-dot"></span> Avaliacao da margem de erro no curvamento</div>
       </div>
     </div>
     <div class="case-metrics">
@@ -768,11 +768,11 @@
       </div>
       <div class="metric-item">
         <div class="m-title">Controle de processo</div>
-        <div class="m-desc">Parametros de curvamento monitorados e ajustados com base em dados historicos e em tempo real.</div>
+        <div class="m-desc">Parametros de curvamento monitorados com base em dados historicos e em tempo real.</div>
       </div>
       <div class="metric-item">
         <div class="m-title">Reducao de margem de erro</div>
-        <div class="m-desc">IA identifica padroes de falha antes que ocorram, prevenindo desperdicio de material e retrabalho.</div>
+        <div class="m-desc">IA identifica padroes de falha antes que ocorram, prevenindo desperdicio de material.</div>
       </div>
       <div class="metric-item">
         <div class="m-title">Relatorios automatizados</div>
@@ -785,28 +785,28 @@
 <!-- METODOLOGIA -->
 <section id="metodologia">
   <p class="section-label">Como trabalhamos</p>
-  <h2 class="section-title">Metodologia orientada<br />a resultados reais</h2>
-  <p class="section-sub">Um processo claro e iterativo — do diagnostico profundo ate a melhoria continua do sistema.</p>
+  <h2 class="section-title">Metodologia orientada a resultados reais</h2>
+  <p class="section-sub">Do diagnostico profundo ate a melhoria continua — um processo claro e iterativo em cada projeto.</p>
   <div class="steps">
     <div class="step">
-      <div class="step-num">1</div>
+      <div class="step-num">ETAPA 01</div>
       <h3>Diagnostico Profundo</h3>
       <p>Compreensao total dos processos, gargalos e oportunidades de melhoria da sua empresa.</p>
     </div>
     <div class="step">
-      <div class="step-num">2</div>
+      <div class="step-num">ETAPA 02</div>
       <h3>Arquitetura do Sistema</h3>
       <p>Desenho da estrutura tecnologica ideal para o contexto e objetivos do seu negocio.</p>
     </div>
     <div class="step">
-      <div class="step-num">3</div>
+      <div class="step-num">ETAPA 03</div>
       <h3>Desenvolvimento Agil</h3>
-      <p>Construcao rapida utilizando ferramentas modernas, com entregas parciais e validacoes constantes.</p>
+      <p>Construcao rapida com ferramentas modernas, entregas parciais e validacoes constantes.</p>
     </div>
     <div class="step">
-      <div class="step-num">4</div>
+      <div class="step-num">ETAPA 04</div>
       <h3>Implementacao e Evolucao</h3>
-      <p>Acompanhamento continuo, melhorias com base em dados reais e evolucao do sistema ao longo do tempo.</p>
+      <p>Acompanhamento continuo, melhorias com base em dados reais e evolucao do sistema.</p>
     </div>
   </div>
 </section>
@@ -814,32 +814,27 @@
 <!-- VALORES -->
 <section id="valores">
   <p class="section-label">Nossos valores</p>
-  <h2 class="section-title">O que nos guia em<br />cada projeto</h2>
+  <h2 class="section-title">O que nos guia em cada projeto</h2>
   <div class="valores-grid">
     <div class="valor-card">
-      <div class="valor-icon">&#128274;</div>
-      <h4>Confianca</h4>
+      <div class="valor-title">Confianca</div>
       <p>Construimos relacoes de longo prazo com clientes e parceiros, baseadas em transparencia e comprometimento.</p>
     </div>
     <div class="valor-card">
-      <div class="valor-icon">&#129504;</div>
-      <h4>Inteligencia Aplicada</h4>
-      <p>Utilizamos tecnologia e IA de forma pratica para resolver problemas reais — sem modismos, sem complexidade desnecessaria.</p>
+      <div class="valor-title">Inteligencia Aplicada</div>
+      <p>Utilizamos tecnologia e IA de forma pratica para resolver problemas reais, sem complexidade desnecessaria.</p>
     </div>
     <div class="valor-card">
-      <div class="valor-icon">&#9889;</div>
-      <h4>Velocidade e Eficiencia</h4>
+      <div class="valor-title">Velocidade e Eficiencia</div>
       <p>Entregamos solucoes rapidas e funcionais. Resultados mensuraveis antes do projeto terminar.</p>
     </div>
     <div class="valor-card">
-      <div class="valor-icon">&#127919;</div>
-      <h4>Hiperpersonalizacao</h4>
-      <p>Cada empresa recebe um sistema desenvolvido para sua realidade. Nenhuma solucao de prateleira, nenhuma copia.</p>
+      <div class="valor-title">Hiperpersonalizacao</div>
+      <p>Cada empresa recebe um sistema desenvolvido para sua realidade. Nenhuma solucao de prateleira.</p>
     </div>
     <div class="valor-card">
-      <div class="valor-icon">&#128200;</div>
-      <h4>Transformacao Real</h4>
-      <p>Nossos sistemas nao sao apenas softwares — eles mudam a forma como a empresa opera e toma decisoes.</p>
+      <div class="valor-title">Transformacao Real</div>
+      <p>Nossos sistemas nao sao apenas softwares — eles mudam a forma como a empresa opera e decide.</p>
     </div>
   </div>
 </section>
@@ -853,20 +848,20 @@
       Acreditamos que empresas nao precisam apenas de softwares.<br />
       Elas precisam de sistemas que pensem junto com a empresa.
     </blockquote>
-    <p style="color: var(--gray); font-size: 1rem; line-height: 1.8;">
+    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.85;">
       Por isso, cada solucao da GRCode e criada com um proposito claro:
     </p>
     <div class="filosofia-pillars">
-      <div class="pillar"><span class="pillar-dot"></span> Organizar dados</div>
-      <div class="pillar"><span class="pillar-dot"></span> Gerar clareza</div>
-      <div class="pillar"><span class="pillar-dot"></span> Orientar decisoes</div>
-      <div class="pillar"><span class="pillar-dot"></span> Aumentar eficiencia</div>
-      <div class="pillar"><span class="pillar-dot"></span> Transformar operacoes</div>
+      <div class="pillar">Organizar dados</div>
+      <div class="pillar">Gerar clareza</div>
+      <div class="pillar">Orientar decisoes</div>
+      <div class="pillar">Aumentar eficiencia</div>
+      <div class="pillar">Transformar operacoes</div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTATO -->
+<!-- CONTATO -->
 <section id="contato">
   <h2>Pronto para ter um sistema<br />que pensa junto com voce?</h2>
   <p>Fale com a GRCode e receba um diagnostico personalizado para a sua empresa.</p>
@@ -875,7 +870,7 @@
     <input type="email" placeholder="E-mail corporativo" required />
     <input type="text" placeholder="Nome da empresa" />
     <input type="text" placeholder="Segmento / setor de atuacao" />
-    <textarea placeholder="Descreva brevemente o processo ou desafio que voce quer automatizar ou organizar..."></textarea>
+    <textarea placeholder="Descreva o processo ou desafio que voce quer automatizar ou organizar..."></textarea>
     <button type="submit">Solicitar diagnostico gratuito</button>
   </form>
 </section>
@@ -902,8 +897,8 @@
     e.preventDefault();
     const btn = e.target.querySelector('button');
     const original = btn.textContent;
-    btn.textContent = 'Mensagem enviada! Entraremos em contato.';
-    btn.style.background = 'linear-gradient(135deg, #27ae60, #1a7a40)';
+    btn.textContent = 'Mensagem enviada. Entraremos em contato.';
+    btn.style.background = '#059669';
     setTimeout(() => {
       btn.textContent = original;
       btn.style.background = '';
@@ -911,7 +906,6 @@
     }, 4000);
   }
 
-  // scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -923,8 +917,8 @@
 
   document.querySelectorAll('.card, .step, .mvv-card, .valor-card, .case-box, .metric-item, .pillar').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(28px)';
-    el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
     observer.observe(el);
   });
 </script>
