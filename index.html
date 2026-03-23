@@ -3,1196 +3,1192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GRCode - Sistemas Inteligentes para Empresas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <title>GRCode — Digital Twin e Manutencao Preditiva para a Industria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #080B12;
-      --bg2:       #0D1117;
-      --bg3:       #111827;
-      --white:     #F0F4F8;
-      --gray:      #6B7280;
-      --gray2:     #9CA3AF;
-      --blue:      #3B82F6;
-      --cyan:      #22D3EE;
-      --border:    rgba(255,255,255,0.07);
+      --white:      #FFFFFF;
+      --black:      #0F1C2E;
+      --dark-blue:  #1B2A4A;
+      --b80:        rgba(27,42,74,0.80);
+      --b10:        rgba(27,42,74,0.10);
+      --b06:        rgba(27,42,74,0.06);
+      --k60:        rgba(15,28,46,0.60);
+      --k30:        rgba(15,28,46,0.30);
+      --k12:        rgba(15,28,46,0.12);
+      --k06:        rgba(15,28,46,0.06);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Archivo', sans-serif;
-      background: var(--bg);
-      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* ─── NAVBAR ─── */
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
       height: 68px;
+      background: var(--white);
+      border-bottom: 1px solid var(--k12);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 6%;
-      background: rgba(8,11,18,0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      text-decoration: none;
-    }
-    .nav-logo svg { display: block; }
-    .nav-logo-text {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.5px;
-    }
-    .nav-logo-text span { color: var(--cyan); }
+    .nav-logo img { height: 30px; width: auto; display: block; }
 
     .nav-links {
       display: flex;
-      gap: 2.2rem;
+      gap: 32px;
       list-style: none;
     }
     .nav-links a {
-      color: var(--gray2);
       text-decoration: none;
-      font-size: 0.875rem;
+      color: var(--black);
+      font-size: 13.5px;
       font-weight: 500;
-      transition: color 0.2s;
+      opacity: 0.65;
+      transition: opacity 0.2s;
+      letter-spacing: 0.01em;
     }
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { opacity: 1; }
 
     .nav-cta {
-      padding: 0.55rem 1.4rem;
-      border-radius: 6px;
-      border: none;
-      background: var(--cyan);
-      color: #050A12;
-      font-size: 0.85rem;
+      background: var(--dark-blue);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
       font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background 0.2s;
     }
-    .nav-cta:hover {
-      opacity: 0.88;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(34,211,238,0.3);
+    .nav-cta:hover { background: var(--black); opacity: 1; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--black);
     }
 
-    /* ─── HERO ─── */
-    .hero {
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--k12);
+      padding: 20px 24px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 199;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--k06);
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── FADE-IN ── */
+    .fi {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fi.vis { opacity: 1; transform: translateY(0); }
+
+    /* ── SECTION LABEL ── */
+    .slabel {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark-blue);
+      opacity: 0.5;
+      margin-bottom: 18px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .btn-dark { background: var(--dark-blue); color: var(--white); }
+    .btn-dark:hover { background: var(--black); }
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--dark-blue);
+      border: 1.5px solid var(--dark-blue);
+    }
+    .btn-outline-dark:hover { background: var(--dark-blue); color: var(--white); }
+    .btn-white { background: var(--white); color: var(--dark-blue); }
+    .btn-white:hover { opacity: 0.88; }
+
+    /* ════════════════════════════
+       SECAO 1 — HERO
+    ════════════════════════════ */
+    #hero {
+      padding-top: 68px;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 9rem 6% 5rem;
-      position: relative;
-      overflow: hidden;
+      background: var(--white);
+      border-bottom: 1px solid var(--k12);
     }
 
-    .hero-noise {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none;
-      opacity: 0.4;
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 48px 88px;
     }
 
-    .hero-glow-top {
-      position: absolute;
-      width: 1000px; height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 65%);
-      top: -100px; left: 50%; transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .hero-glow-bottom {
-      position: absolute;
-      width: 600px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(34,211,238,0.07) 0%, transparent 65%);
-      bottom: -80px; right: -100px;
-      pointer-events: none;
-    }
+    .hero-logo { margin-bottom: 72px; }
+    .hero-logo img { height: 48px; width: auto; }
 
-    .hero-grid-lines {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 1rem;
-      border: 1px solid rgba(34,211,238,0.2);
-      border-radius: 4px;
-      font-size: 0.7rem;
+    .hero-h1 {
+      font-size: clamp(38px, 5.5vw, 68px);
       font-weight: 700;
-      color: var(--cyan);
-      background: rgba(34,211,238,0.05);
-      margin-bottom: 2rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-badge-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--cyan);
-      animation: blink 2s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -3px;
-      max-width: 900px;
-      margin-bottom: 1.6rem;
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--cyan);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--black);
+      max-width: 840px;
+      margin-bottom: 28px;
     }
 
     .hero-sub {
-      font-size: clamp(1rem, 1.8vw, 1.15rem);
-      color: var(--gray2);
-      max-width: 520px;
-      line-height: 1.85;
-      margin-bottom: 3rem;
-      position: relative;
-      z-index: 1;
+      font-size: clamp(15px, 1.6vw, 18px);
       font-weight: 400;
+      color: var(--k60);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 52px;
     }
 
-    .hero-ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ════════════════════════════
+       SECAO 2 — PROBLEMA
+    ════════════════════════════ */
+    #problema {
+      padding: 120px 0;
+      background: var(--dark-blue);
     }
 
-    .btn-primary {
-      padding: 0.9rem 2.2rem;
-      border-radius: 6px;
-      border: none;
-      background: var(--cyan);
-      color: #050A12;
-      font-size: 0.95rem;
+    #problema .slabel { color: rgba(255,255,255,0.4); }
+
+    .prob-h2 {
+      font-size: clamp(28px, 3.8vw, 50px);
       font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-primary:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(34,211,238,0.35);
-    }
-
-    .btn-outline {
-      padding: 0.9rem 2.2rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--gray2);
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
-
-    /* ─── TICKER ─── */
-    .ticker {
-      background: var(--cyan);
-      padding: 0.85rem 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-track {
-      display: inline-flex;
-      gap: 0;
-      animation: ticker 30s linear infinite;
-    }
-    .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0 2.5rem;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #050A12;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .ticker-sep {
-      display: inline-block;
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: rgba(5,10,18,0.35);
-    }
-    @keyframes ticker {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ─── SECTIONS BASE ─── */
-    section.padded { padding: 7rem 6%; }
-
-    .section-tag {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 1rem;
-    }
-    .section-title {
-      font-size: clamp(1.9rem, 3.8vw, 3rem);
-      font-weight: 800;
       line-height: 1.12;
-      letter-spacing: -1.5px;
+      letter-spacing: -0.025em;
       color: var(--white);
-      margin-bottom: 1rem;
-    }
-    .section-desc {
-      color: var(--gray2);
-      font-size: 1rem;
-      line-height: 1.85;
-      max-width: 520px;
-      font-weight: 400;
-    }
-
-    /* ─── SOBRE ─── */
-    #sobre {
-      background: var(--bg);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
-      padding: 7rem 6%;
-    }
-    @media(max-width:860px){ #sobre{ grid-template-columns:1fr; gap:3rem; } }
-
-    .sobre-body p {
-      color: var(--gray2);
-      font-size: 0.97rem;
-      line-height: 1.95;
-      margin-top: 1.2rem;
-    }
-    .sobre-body p strong { color: var(--white); font-weight: 600; }
-
-    .mvv-stack { display: flex; flex-direction: column; gap: 1px; }
-    .mvv-item {
-      background: var(--bg2);
-      border-left: 2px solid var(--blue);
-      padding: 1.6rem 2rem;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .mvv-item:first-child { border-radius: 8px 8px 0 0; }
-    .mvv-item:last-child  { border-radius: 0 0 8px 8px; }
-    .mvv-item:hover { border-left-color: var(--cyan); background: #0f1520; }
-    .mvv-item h4 {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 0.6rem;
-    }
-    .mvv-item p { color: var(--gray2); font-size: 0.88rem; line-height: 1.72; }
-
-    /* ─── SOLUCOES ─── */
-    #solucoes { background: var(--bg2); padding: 7rem 6%; }
-
-    .cards-grid {
-      margin-top: 4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .sol-card {
-      background: var(--bg2);
-      padding: 2.5rem;
-      position: relative;
-      transition: background 0.25s;
-      overflow: hidden;
-    }
-    .sol-card:hover { background: #0f1623; }
-
-    .sol-card-bar {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-    }
-
-    .sol-card-num {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 1.8rem;
-      font-family: 'Courier New', monospace;
-    }
-    .sol-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.8rem;
-    }
-    .sol-card p {
-      color: var(--gray2);
-      font-size: 0.88rem;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-    }
-    .sol-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .sol-tag {
-      padding: 0.2rem 0.7rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 3px;
-      color: var(--gray);
-      font-size: 0.72rem;
-      font-weight: 500;
-    }
-
-    /* ─── NUMEROS ─── */
-    #numeros {
-      background: var(--bg);
-      padding: 5rem 6%;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .numeros-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .numero-item {
-      background: var(--bg);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      transition: background 0.2s;
-    }
-    .numero-item:hover { background: var(--bg2); }
-    .numero-val {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: var(--white);
-      letter-spacing: -2px;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .numero-val span { color: var(--cyan); }
-    .numero-label {
-      font-size: 0.78rem;
-      color: var(--gray);
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-
-    /* ─── CASE ─── */
-    #case { background: var(--bg2); padding: 7rem 6%; }
-
-    .case-wrap {
-      margin-top: 3.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    @media(max-width:760px){ .case-wrap{ grid-template-columns:1fr; } }
-
-    .case-left {
-      padding: 3.5rem;
-      background: var(--bg);
-      border-right: 1px solid var(--border);
-    }
-    .case-left h3 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 1rem;
-      letter-spacing: -0.5px;
-    }
-    .case-left > p {
-      color: var(--gray2);
-      font-size: 0.92rem;
-      line-height: 1.88;
-      margin-bottom: 2.2rem;
-    }
-    .case-list { display: flex; flex-direction: column; gap: 0.8rem; }
-    .case-list-item {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 0.88rem;
-      color: #CBD5E1;
-    }
-    .case-list-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--cyan);
-      flex-shrink: 0;
-    }
-
-    .case-right {
-      padding: 3.5rem;
-      background: #070A10;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
-    }
-    .case-metric {
-      padding-left: 1.2rem;
-      border-left: 2px solid rgba(59,130,246,0.3);
-      transition: border-color 0.2s;
-    }
-    .case-metric:hover { border-left-color: var(--cyan); }
-    .case-metric-label {
-      font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 0.4rem;
-    }
-    .case-metric p { color: var(--gray2); font-size: 0.87rem; line-height: 1.65; }
-
-    /* ─── METODOLOGIA ─── */
-    #metodologia { background: var(--bg); padding: 7rem 6%; }
-
-    .steps-grid {
-      margin-top: 4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .step-card {
-      background: var(--bg);
-      padding: 2.5rem 2rem;
-      position: relative;
-      transition: background 0.2s;
-    }
-    .step-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-    .step-card:hover { background: #0c1018; }
-    .step-card:hover::after { transform: scaleX(1); }
-
-    .step-num {
-      font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--cyan);
-      font-family: 'Courier New', monospace;
-      margin-bottom: 1.2rem;
-    }
-    .step-card h3 { font-size: 0.98rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
-    .step-card p { color: var(--gray2); font-size: 0.85rem; line-height: 1.72; }
-
-    /* ─── VALORES ─── */
-    #valores { background: var(--bg2); padding: 7rem 6%; }
-
-    .valores-grid {
-      margin-top: 4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .valor-item {
-      background: var(--bg2);
-      padding: 2.2rem;
-      border-top: 2px solid transparent;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .valor-item:hover { background: #0f1623; border-top-color: var(--blue); }
-    .valor-item h4 { font-size: 0.97rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
-    .valor-item p { color: var(--gray2); font-size: 0.85rem; line-height: 1.72; }
-
-    /* ─── FILOSOFIA ─── */
-    #filosofia { background: var(--bg); padding: 7rem 6%; text-align: center; }
-    .filosofia-inner { max-width: 760px; margin: 0 auto; }
-
-    .filosofia-quote {
-      font-size: clamp(1.2rem, 2.4vw, 1.6rem);
-      font-weight: 600;
-      line-height: 1.6;
-      color: var(--white);
-      margin: 2.5rem 0;
-      padding: 3rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--bg2);
-      letter-spacing: -0.3px;
-      position: relative;
-    }
-    .filosofia-quote::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 15%; right: 15%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    }
-
-    .filosofia-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .ftag {
-      padding: 0.45rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.82rem;
-      color: var(--gray2);
-      font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .ftag:hover { border-color: var(--cyan); color: var(--white); }
-
-    /* ─── CTA FINAL ─── */
-    #contato {
-      background: var(--bg2);
-      padding: 7rem 6%;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #contato::before {
-      content: '';
-      position: absolute;
-      width: 800px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 65%);
-      top: -80px; left: 50%; transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    .cta-box {
       max-width: 700px;
-      margin: 0 auto;
-      padding: 4rem;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--bg);
-      position: relative;
-      z-index: 1;
-    }
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 10%; right: 10%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin-bottom: 56px;
     }
 
-    .cta-box h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 900;
-      letter-spacing: -1.5px;
-      margin-bottom: 1rem;
-      line-height: 1.1;
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .cta-box > p {
-      color: var(--gray2);
-      font-size: 0.97rem;
-      margin-bottom: 2.5rem;
+
+    .prob-item {
+      background: var(--dark-blue);
+      padding: 44px 36px;
+    }
+
+    .prob-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .prob-item-text {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.55);
       line-height: 1.75;
     }
 
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      text-align: left;
+    .prob-statement {
+      margin-top: 72px;
+      padding-top: 52px;
+      border-top: 1px solid rgba(255,255,255,0.12);
     }
-    .form-row {
+
+    .prob-statement p {
+      font-size: clamp(17px, 2.2vw, 24px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    /* ════════════════════════════
+       SECAO 3 — SOLUCOES
+    ════════════════════════════ */
+    #solucoes {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .sol-header { margin-bottom: 72px; }
+
+    .sol-h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      max-width: 560px;
+      line-height: 1.12;
+    }
+
+    .sol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+      gap: 1px;
+      background: var(--k12);
+      border: 1px solid var(--k12);
+    }
+
+    .sol-card {
+      background: var(--white);
+      padding: 52px 40px;
+      transition: background 0.2s;
+    }
+    .sol-card:hover { background: var(--k06); }
+
+    .sol-icon {
+      width: 38px;
+      height: 38px;
+      margin-bottom: 28px;
+      color: var(--dark-blue);
+    }
+
+    .sol-tag {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dark-blue);
+      background: var(--b10);
+      padding: 4px 10px;
+      border-radius: 1px;
+      margin-bottom: 18px;
+    }
+
+    .sol-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .sol-desc {
+      font-size: 13.5px;
+      color: var(--k60);
+      line-height: 1.8;
+    }
+
+    /* ════════════════════════════
+       SECAO 4 — COMO FUNCIONA
+    ════════════════════════════ */
+    #como-funciona {
+      padding: 120px 0;
+      background: var(--k06);
+      border-top: 1px solid var(--k12);
+      border-bottom: 1px solid var(--k12);
+    }
+
+    .cf-header { margin-bottom: 72px; }
+
+    .cf-h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      max-width: 560px;
+      line-height: 1.12;
+    }
+
+    .steps-wrap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+    }
+
+    .step-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--dark-blue);
+      opacity: 0.45;
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--k60);
+      line-height: 1.75;
+    }
+
+    /* ════════════════════════════
+       SECAO 5 — RESULTADOS
+    ════════════════════════════ */
+    #resultados {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .res-header { margin-bottom: 72px; }
+
+    .res-h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      max-width: 560px;
+      line-height: 1.12;
+    }
+
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--k12);
+      border: 1px solid var(--k12);
+    }
+
+    .res-card {
+      background: var(--white);
+      padding: 52px 40px;
+    }
+
+    .res-number {
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      color: var(--dark-blue);
+      line-height: 1;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .res-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .res-source {
+      font-size: 12.5px;
+      color: var(--k30);
+      line-height: 1.6;
+    }
+
+    /* ════════════════════════════
+       SECAO 6 — SETORES
+    ════════════════════════════ */
+    #setores {
+      padding: 120px 0;
+      background: var(--k06);
+      border-top: 1px solid var(--k12);
+      border-bottom: 1px solid var(--k12);
+    }
+
+    .set-header { margin-bottom: 72px; }
+
+    .set-h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      max-width: 560px;
+      line-height: 1.12;
+    }
+
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1px;
+      background: var(--k12);
+      border: 1px solid var(--k12);
+    }
+
+    .set-item {
+      background: var(--white);
+      padding: 36px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .set-icon {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      color: var(--dark-blue);
+      opacity: 0.75;
+    }
+
+    .set-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.4;
+    }
+
+    .set-sub {
+      font-size: 12.5px;
+      color: var(--k60);
+      margin-top: 4px;
+    }
+
+    /* ════════════════════════════
+       SECAO 7 — SOBRE
+    ════════════════════════════ */
+    #sobre {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .sobre-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.8rem;
+      gap: 100px;
+      align-items: start;
     }
-    @media(max-width:560px){ .form-row{ grid-template-columns:1fr; } }
 
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.85rem 1.1rem;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: var(--bg2);
+    .sobre-h2 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      line-height: 1.12;
+      margin-bottom: 32px;
+    }
+
+    .sobre-text {
+      font-size: 14.5px;
+      color: var(--k60);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .detail-block {
+      border-top: 1px solid var(--k12);
+      padding-top: 36px;
+    }
+
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--k30);
+      margin-bottom: 5px;
+    }
+
+    .detail-val {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════════
+       SECAO 8 — CONTATO
+    ════════════════════════════ */
+    #contato {
+      padding: 120px 0;
+      background: var(--dark-blue);
+    }
+
+    #contato .slabel { color: rgba(255,255,255,0.38); }
+
+    .cont-h2 {
+      font-size: clamp(28px, 4vw, 54px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
       color: var(--white);
-      font-family: inherit;
-      font-size: 0.88rem;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .cont-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 68px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .cont-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      padding: 13px 16px;
+      border-radius: 2px;
       outline: none;
       transition: border-color 0.2s;
-      width: 100%;
     }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color: #4B5563; }
-    .contact-form input:focus,
-    .contact-form textarea:focus { border-color: rgba(34,211,238,0.4); }
-    .contact-form textarea { resize: vertical; min-height: 110px; }
-    .contact-form button {
-      padding: 1rem;
-      border-radius: 6px;
-      border: none;
-      background: var(--cyan);
-      color: #050A12;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.3px;
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-      margin-top: 0.4rem;
-    }
-    .contact-form button:hover {
-      opacity: 0.88;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 28px rgba(34,211,238,0.28);
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.22); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: rgba(255,255,255,0.4); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .cont-info-item { margin-bottom: 44px; }
+
+    .cont-info-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 10px;
+      display: block;
     }
 
-    /* ─── FOOTER ─── */
+    .cont-info-val {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.65;
+    }
+
+    .cont-info-val a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 13px 22px;
+      border-radius: 2px;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+    .wa-btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── FOOTER ── */
     footer {
-      background: #050810;
-      border-top: 1px solid var(--border);
-      padding: 3.5rem 6%;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 3rem;
+      background: var(--black);
+      padding: 44px 48px;
     }
-    @media(max-width:680px){ footer{ grid-template-columns:1fr; gap:2rem; } }
 
-    .footer-brand .footer-logo {
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 0.8rem;
-    }
-    .footer-logo-text {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--white);
-    }
-    .footer-logo-text span { color: var(--cyan); }
-    .footer-brand p {
-      color: #374151;
-      font-size: 0.82rem;
-      line-height: 1.7;
-      max-width: 260px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
-    .footer-col h5 {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 1.2rem;
+    .footer-logo img {
+      height: 22px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.55;
     }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-    .footer-col ul a {
-      color: #374151;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-    .footer-col ul a:hover { color: var(--gray2); }
 
-    .footer-bottom {
-      background: #050810;
-      border-top: 1px solid rgba(255,255,255,0.04);
-      padding: 1.2rem 6%;
-      text-align: center;
+    .footer-meta {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.65;
+      text-align: right;
     }
-    .footer-bottom p { color: #1F2937; font-size: 0.75rem; }
 
-    /* ─── MOBILE BOTTOM NAV ─── */
-    .bottom-nav {
-      display: none;
-      position: fixed;
-      bottom: 1rem; left: 50%;
-      transform: translateX(-50%);
-      z-index: 300;
-      background: rgba(13,17,23,0.95);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 0.6rem 1.5rem;
-      gap: 1.5rem;
-    }
-    @media(max-width:768px){
-      .nav-links, .nav-cta { display:none; }
-      .bottom-nav { display: flex; }
-    }
-    .bnav-link {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-    .bnav-link:hover { color: var(--cyan); }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
 
-    /* ─── REVEAL ANIMATION ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      .container { padding: 0 24px; }
+      .hero-inner { padding: 80px 24px 64px; }
+
+      .steps-wrap {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .sobre-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .cont-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      footer { padding: 40px 24px; }
+      .footer-meta { text-align: left; }
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    @media (max-width: 540px) {
+      .steps-wrap { grid-template-columns: 1fr; }
+      .mobile-menu { padding: 20px 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav>
-  <a href="#inicio" class="nav-logo">
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="7" fill="#0D1117"/>
-      <rect x="5"  y="5"  width="6" height="6" rx="1.5" fill="#3B82F6"/>
-      <rect x="13" y="5"  width="6" height="6" rx="1.5" fill="#22D3EE"/>
-      <rect x="21" y="5"  width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.5"/>
-      <rect x="5"  y="13" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.5"/>
-      <rect x="13" y="13" width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.3"/>
-      <rect x="21" y="13" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.6"/>
-      <rect x="5"  y="21" width="6" height="6" rx="1.5" fill="#3B82F6"/>
-      <rect x="13" y="21" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.4"/>
-      <rect x="21" y="21" width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.7"/>
-    </svg>
-    <span class="nav-logo-text">GR<span>Code</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#solucoes">Solucoes</a></li>
-    <li><a href="#metodologia">Metodologia</a></li>
-    <li><a href="#case">Case</a></li>
-    <li><a href="#valores">Valores</a></li>
-  </ul>
-  <button class="nav-cta" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Falar com a GRCode</button>
+  <div class="nav-inner">
+    <a href="#hero" aria-label="GRCode — pagina inicial">
+      <img src="logo-grcode.png" alt="GRCode" style="height:30px;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#problema">O Problema</a></li>
+      <li><a href="#solucoes">Solucoes</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato" class="nav-cta">Falar com a GRCode</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- MOBILE BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a href="#sobre"       class="bnav-link">Sobre</a>
-  <a href="#solucoes"    class="bnav-link">Solucoes</a>
-  <a href="#metodologia" class="bnav-link">Metodo</a>
-  <a href="#case"        class="bnav-link">Case</a>
-  <a href="#contato"     class="bnav-link">Contato</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="inicio">
-  <div class="hero-noise"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-glow-top"></div>
-  <div class="hero-glow-bottom"></div>
-
-  <div class="hero-badge"><span class="hero-badge-dot"></span> Tecnologia aplicada a transformacao empresarial</div>
-  <h1>Sistemas que pensam<br /><em>junto com</em> a sua empresa</h1>
-  <p class="hero-sub">
-    Criamos sistemas inteligentes e solucoes de automacao personalizadas que organizam dados,
-    automatizam processos e ampliam a capacidade operacional do seu negocio.
-  </p>
-  <div class="hero-ctas">
-    <button class="btn-primary" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Solicitar diagnostico gratuito</button>
-    <button class="btn-outline" onclick="document.getElementById('solucoes').scrollIntoView({behavior:'smooth'})">Conhecer solucoes</button>
-  </div>
-</section>
-
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="ticker-item">Sistemas personalizados <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Automacao empresarial <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Inteligencia artificial aplicada <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Infraestrutura digital exclusiva <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Funcionarios digitais 24/7 <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Dados que orientam decisoes <span class="ticker-sep"></span></span>
-    <span class="ticker-item">100% sob medida <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Transformacao real <span class="ticker-sep"></span></span>
-    <!-- duplicado para loop continuo -->
-    <span class="ticker-item">Sistemas personalizados <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Automacao empresarial <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Inteligencia artificial aplicada <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Infraestrutura digital exclusiva <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Funcionarios digitais 24/7 <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Dados que orientam decisoes <span class="ticker-sep"></span></span>
-    <span class="ticker-item">100% sob medida <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Transformacao real <span class="ticker-sep"></span></span>
-  </div>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#problema"     onclick="closeMobileMenu()">O Problema</a>
+  <a href="#solucoes"     onclick="closeMobileMenu()">Solucoes</a>
+  <a href="#como-funciona" onclick="closeMobileMenu()">Como Funciona</a>
+  <a href="#resultados"   onclick="closeMobileMenu()">Resultados</a>
+  <a href="#sobre"        onclick="closeMobileMenu()">Sobre</a>
+  <a href="#contato"      onclick="closeMobileMenu()">Falar com a GRCode</a>
 </div>
 
-<!-- NUMEROS -->
-<section id="numeros">
-  <div class="numeros-grid">
-    <div class="numero-item reveal">
-      <div class="numero-val"><span>100%</span></div>
-      <div class="numero-label">Solucoes sob medida</div>
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-logo fi">
+      <img src="logo-grcode.png" alt="GRCode" />
     </div>
-    <div class="numero-item reveal">
-      <div class="numero-val">+<span>60%</span></div>
-      <div class="numero-label">Ganho de eficiencia operacional</div>
-    </div>
-    <div class="numero-item reveal">
-      <div class="numero-val"><span>24/7</span></div>
-      <div class="numero-label">Funcionarios digitais ativos</div>
-    </div>
-    <div class="numero-item reveal">
-      <div class="numero-val"><span>0</span></div>
-      <div class="numero-label">Software generico entregue</div>
+    <h1 class="hero-h1 fi">
+      Seus equipamentos estao avisando.<br />Voce esta ouvindo?
+    </h1>
+    <p class="hero-sub fi">
+      Digital Twin e Manutencao Preditiva com Inteligencia Artificial para industrias que nao podem se dar ao luxo de parar.
+    </p>
+    <div class="hero-ctas fi">
+      <a href="#contato" class="btn btn-dark">Falar com a GRCode</a>
+      <a href="#solucoes" class="btn btn-outline-dark">Conhecer as solucoes</a>
     </div>
   </div>
 </section>
 
-<!-- SOBRE -->
-<section id="sobre">
-  <div class="sobre-body">
-    <p class="section-tag">Quem somos</p>
-    <h2 class="section-title">Infraestrutura digital exclusiva para cada empresa</h2>
-    <p>A <strong>GRCode</strong> e uma empresa de tecnologia focada na criacao de sistemas inteligentes e solucoes de automacao personalizadas para empresas.</p>
-    <p>Nosso objetivo e <strong>transformar dados em direcao estrategica</strong> — criando softwares e estruturas tecnologicas que organizam informacoes, automatizam processos e ampliam a capacidade operacional das organizacoes.</p>
-    <p>Em outras palavras: <strong>criamos sistemas que funcionam como multiplos funcionarios digitais dentro da empresa.</strong></p>
-  </div>
-  <div class="mvv-stack">
-    <div class="mvv-item reveal">
-      <h4>Missao</h4>
-      <p>Transformar empresas por meio da organizacao inteligente de dados, desenvolvimento de sistemas personalizados e aplicacao pratica de inteligencia artificial.</p>
+<!-- ════ PROBLEMA ════ -->
+<section id="problema">
+  <div class="container">
+    <span class="slabel fi">O Problema</span>
+    <h2 class="prob-h2 fi">
+      Paradas nao planejadas custam mais do que a industria admite.
+    </h2>
+    <div class="prob-grid fi">
+      <div class="prob-item">
+        <div class="prob-item-title">Manutencao reativa</div>
+        <div class="prob-item-text">A maquina quebra. A producao para. A emergencia custa tres vezes mais do que a intervencao planejada teria custado — e o impacto na entrega e irreversivel.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-item-title">Preventiva no calendario</div>
+        <div class="prob-item-text">Pecas sao trocadas por prazo, nao por necessidade. Capital imobilizado em estoque. Equipamento parado sem motivo real. Custo medio sem controle de precisao.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-item-title">Falta de visibilidade</div>
+        <div class="prob-item-text">Nenhum gestor sabe, em tempo real, qual maquina esta degradando, qual esta no limite operacional ou qual vai falhar nos proximos 30 dias.</div>
+      </div>
+      <div class="prob-item">
+        <div class="prob-item-title">Custos ocultos na operacao</div>
+        <div class="prob-item-text">Consumo energetico excessivo, desgaste acelerado, ineficiencia de processo — perdas que nao aparecem no relatorio mensal, mas corroem a margem sistematicamente.</div>
+      </div>
     </div>
-    <div class="mvv-item reveal">
-      <h4>Visao</h4>
-      <p>Ser referencia na criacao de sistemas empresariais inteligentes, capazes de melhorar processos, aumentar eficiencia operacional e fornecer direcao estrategica baseada em dados.</p>
-    </div>
-    <div class="mvv-item reveal">
-      <h4>Diferencial</h4>
-      <p>Enquanto muitos oferecem softwares genericos, a GRCode constroi sistemas personalizados. Cada projeto e pensado como uma infraestrutura digital exclusiva para a empresa.</p>
+    <div class="prob-statement fi">
+      <p>A maior parte das paradas industriais e previsivel. O que falta e visibilidade sobre os dados certos, interpretados pelos modelos certos, no momento certo.</p>
     </div>
   </div>
 </section>
 
-<!-- SOLUCOES -->
+<!-- ════ SOLUCOES ════ -->
 <section id="solucoes">
-  <p class="section-tag">O que fazemos</p>
-  <h2 class="section-title">Tres pilares de transformacao empresarial</h2>
-  <p class="section-desc">Cada solucao e desenvolvida para a realidade especifica da sua empresa. Nenhuma copia, nenhuma prateleira.</p>
-  <div class="cards-grid">
-    <div class="sol-card reveal">
-      <div class="sol-card-bar"></div>
-      <div class="sol-card-num">01 / Sistemas</div>
-      <h3>Desenvolvimento de Sistemas Personalizados</h3>
-      <p>Criamos sistemas sob medida para empresas que precisam organizar dados, automatizar rotinas e melhorar a tomada de decisoes.</p>
-      <div class="sol-tags">
-        <span class="sol-tag">Gestao interna</span>
-        <span class="sol-tag">Dashboards</span>
-        <span class="sol-tag">Plataformas operacionais</span>
-        <span class="sol-tag">Controle de processos</span>
-      </div>
+  <div class="container">
+    <div class="sol-header fi">
+      <span class="slabel">Solucoes</span>
+      <h2 class="sol-h2">Tecnologia aplicada a ativos industriais reais.</h2>
     </div>
-    <div class="sol-card reveal">
-      <div class="sol-card-bar"></div>
-      <div class="sol-card-num">02 / Automacao</div>
-      <h3>Automacao Empresarial</h3>
-      <p>Automatizamos atividades que normalmente exigem trabalho humano repetitivo, liberando seu time para o que realmente importa.</p>
-      <div class="sol-tags">
-        <span class="sol-tag">Organizacao de dados</span>
-        <span class="sol-tag">Relatorios automaticos</span>
-        <span class="sol-tag">Automacao de comunicacao</span>
-        <span class="sol-tag">Controle operacional</span>
+    <div class="sol-grid">
+
+      <div class="sol-card fi">
+        <svg class="sol-icon" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="11" width="13" height="19" rx="1" stroke="currentColor" stroke-width="1.4"/>
+          <rect x="22" y="7" width="13" height="23" rx="1" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M9.5 11V7M28.5 7V3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M16 21h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="9.5" cy="21" r="2" fill="currentColor"/>
+          <circle cx="28.5" cy="19" r="2" fill="currentColor"/>
+        </svg>
+        <span class="sol-tag">Digital Twin</span>
+        <h3 class="sol-title">Gemeo Digital</h3>
+        <p class="sol-desc">Replica virtual de cada equipamento, alimentada continuamente por dados de sensores. O modelo reflete o estado operacional em tempo real e projeta comportamento futuro com base em IA e historico operacional.</p>
       </div>
+
+      <div class="sol-card fi">
+        <svg class="sol-icon" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 31L13 20L19 26L27 13L33 19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="33" cy="7" r="4" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M30.2 9.8L27 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="sol-tag">Manutencao Preditiva</span>
+        <h3 class="sol-title">Predicao de Falhas com IA</h3>
+        <p class="sol-desc">Algoritmos treinados com historico operacional identificam padroes de degradacao antes que se tornem falhas visiveis. O sistema calcula a vida util restante e emite alertas com antecedencia suficiente para planejar a intervencao.</p>
+      </div>
+
+      <div class="sol-card fi">
+        <svg class="sol-icon" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="5" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.4"/>
+          <rect x="21" y="5" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2"/>
+          <rect x="5" y="21" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.5 2"/>
+          <rect x="21" y="21" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M17 11h4M11 17v4M27 17v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="sol-tag">Simulacao</span>
+        <h3 class="sol-title">Simulacao de Cenarios</h3>
+        <p class="sol-desc">O gestor testa hipoteses operacionais no modelo digital antes de aplica-las na producao. Impacto de carga extra, aumento de turno, variacao termica — avaliados sem qualquer risco ao equipamento real.</p>
+      </div>
+
+      <div class="sol-card fi">
+        <svg class="sol-icon" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="9" width="28" height="22" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M5 15h28" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M13 22h12M13 26h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="10" cy="12" r="1.2" fill="currentColor"/>
+          <circle cx="14" cy="12" r="1.2" fill="currentColor"/>
+        </svg>
+        <span class="sol-tag">Inteligencia Financeira</span>
+        <h3 class="sol-title">Sistema RWK</h3>
+        <p class="sol-desc">Calculo automatico dos gastos gerais da operacao vinculado diretamente a precificacao dos produtos. Elimina estimativas e planilhas desatualizadas. Protege margem e fundamenta negociacoes comerciais com dados reais de custo.</p>
+      </div>
+
     </div>
-    <div class="sol-card reveal">
-      <div class="sol-card-bar"></div>
-      <div class="sol-card-num">03 / Inteligencia Artificial</div>
-      <h3>Inteligencia Artificial Aplicada</h3>
-      <p>Aplicamos IA para melhorar analise de dados e tomada de decisoes com casos de uso praticos e resultados mensuraveis.</p>
-      <div class="sol-tags">
-        <span class="sol-tag">Analise de desempenho</span>
-        <span class="sol-tag">Previsao de padroes</span>
-        <span class="sol-tag">Monitoramento inteligente</span>
-        <span class="sol-tag">Dados industriais</span>
+  </div>
+</section>
+
+<!-- ════ COMO FUNCIONA ════ -->
+<section id="como-funciona">
+  <div class="container">
+    <div class="cf-header fi">
+      <span class="slabel">Processo</span>
+      <h2 class="cf-h2">Da integracao ao resultado em quatro etapas.</h2>
+    </div>
+    <div class="steps-wrap">
+
+      <div class="fi">
+        <span class="step-num">01</span>
+        <h3 class="step-title">Integracao com seus sistemas</h3>
+        <p class="step-desc">Conectamos na infraestrutura existente: CLPs, SCADA, protocolos industriais Modbus, OPC-UA e MQTT. Sem substituir o que ja funciona e sem paralisacao da producao.</p>
+      </div>
+
+      <div class="fi">
+        <span class="step-num">02</span>
+        <h3 class="step-title">Coleta continua de dados</h3>
+        <p class="step-desc">Sensores IoT monitoram vibracao, temperatura, pressao, corrente eletrica e consumo energetico em tempo real. Os dados alimentam o modelo do gemeo digital continuamente.</p>
+      </div>
+
+      <div class="fi">
+        <span class="step-num">03</span>
+        <h3 class="step-title">Aplicacao de IA e modelos</h3>
+        <p class="step-desc">Algoritmos treinados no historico operacional de cada equipamento detectam anomalias, calculam vida util restante e identificam a causa raiz de desvios antes que resultem em falha.</p>
+      </div>
+
+      <div class="fi">
+        <span class="step-num">04</span>
+        <h3 class="step-title">Visibilidade e predicoes</h3>
+        <p class="step-desc">Gestores e engenheiros acessam dashboards em tempo real com alertas automaticos, predicoes de falha com antecedencia e recomendacoes concretas de intervencao.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ RESULTADOS ════ -->
+<section id="resultados">
+  <div class="container">
+    <div class="res-header fi">
+      <span class="slabel">Resultados do Mercado</span>
+      <h2 class="res-h2">Numeros medidos em operacoes industriais reais.</h2>
+    </div>
+    <div class="res-grid fi">
+
+      <div class="res-card">
+        <span class="res-number">65%</span>
+        <div class="res-label">Reducao em downtime nao planejado</div>
+        <div class="res-source">Empresas que adotaram Digital Twin reportam reducao media de 65% em paradas de emergencia em operacoes de manufatura e mineracao.</div>
+      </div>
+
+      <div class="res-card">
+        <span class="res-number">40%</span>
+        <div class="res-label">Economia em custos de manutencao</div>
+        <div class="res-source">Manutencao preditiva baseada em condicao real reduz entre 25% e 40% os custos totais em relacao a modelos reativos ou preventivos por calendario.</div>
+      </div>
+
+      <div class="res-card">
+        <span class="res-number">62%</span>
+        <div class="res-label">Melhoria na utilizacao de ativos</div>
+        <div class="res-source">Ativos monitorados por gemeo digital operam com taxa de utilizacao ate 62% superior, operando nos limites reais e nao nos limites arbitrarios do calendario.</div>
+      </div>
+
+      <div class="res-card">
+        <span class="res-number">50%</span>
+        <div class="res-label">Reducao de paradas de emergencia</div>
+        <div class="res-source">Deteccao precoce de anomalias permite planejar intervencoes com antecedencia, reduzindo paradas de emergencia em ate 50% ja no primeiro ano de operacao.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ SETORES ════ -->
+<section id="setores">
+  <div class="container">
+    <div class="set-header fi">
+      <span class="slabel">Setores Atendidos</span>
+      <h2 class="set-h2">Onde equipamentos de alto valor nao podem parar.</h2>
+    </div>
+    <div class="set-grid fi">
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="16" width="7" height="10" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="11.5" y="9" width="7" height="17" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="19" y="12" width="7" height="14" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M4 16l3.5-5 8-4 7 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Metalurgia</div>
+          <div class="set-sub">Conformacao de metais</div>
+        </div>
+      </div>
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 4L27 26H3L15 4Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M15 12v7M12 22h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Mineracao</div>
+          <div class="set-sub">Siderurgia</div>
+        </div>
+      </div>
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="13" r="7" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M9 27h12M15 20v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M12.5 11l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Alimentos e Bebidas</div>
+          <div class="set-sub">Linha de processamento</div>
+        </div>
+      </div>
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 3v5M8 6.5l3.5 3.5M22 6.5l-3.5 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="15" cy="15" r="5.5" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M5 15H3M27 15h-2M15 20.5v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Energia</div>
+          <div class="set-sub">Utilities e geracao</div>
+        </div>
+      </div>
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="13" width="24" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+          <circle cx="8.5" cy="24.5" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+          <circle cx="21.5" cy="24.5" r="2.5" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M3 17h24M8.5 13l3.5-5h6l3.5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Automotivo</div>
+          <div class="set-sub">Autopecas e montadoras</div>
+        </div>
+      </div>
+
+      <div class="set-item">
+        <svg class="set-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="7" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="17" y="7" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="3" y="21" width="10" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="17" y="21" width="10" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M13 12h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="set-name">Manufatura Geral</div>
+          <div class="set-sub">Equipamentos de medio e alto valor</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ SOBRE ════ -->
+<section id="sobre">
+  <div class="container">
+    <div class="sobre-inner">
+      <div class="fi">
+        <span class="slabel">Sobre a GRCode</span>
+        <h2 class="sobre-h2">Tecnologia industrial desenvolvida em Minas Gerais.</h2>
+        <p class="sobre-text">A GRCode e uma empresa de tecnologia especializada em Digital Twin e Manutencao Preditiva com Inteligencia Artificial para a industria. Combinamos integracao com sistemas legados, coleta de dados por sensores IoT e modelos de IA para transformar ativos industriais em equipamentos que comunicam seu proprio estado de saude.</p>
+        <p class="sobre-text">Nosso trabalho e conectar os dados que ja existem na operacao — ou implantar a coleta onde ela ainda nao existe — e entregar visibilidade real, predicoes confiaveis e decisoes fundamentadas em evidencia operacional.</p>
+      </div>
+      <div class="detail-block fi">
+        <div class="detail-row">
+          <span class="detail-label">Sede</span>
+          <span class="detail-val">Pedro Leopoldo, Minas Gerais</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Especializacao</span>
+          <span class="detail-val">Digital Twin — Manutencao Preditiva com IA — Sistema RWK</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Integracao</span>
+          <span class="detail-val">CLPs, SCADA, Modbus, OPC-UA, MQTT, sensores IoT</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Segmento</span>
+          <span class="detail-val">Industria de medio e alto valor de ativos</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CASE -->
-<section id="case">
-  <p class="section-tag">Exemplo de aplicacao</p>
-  <h2 class="section-title">Sistema inteligente para industria de tubos</h2>
-  <p class="section-desc">Um projeto real que demonstra como a GRCode une hardware, dados e IA para transformar operacoes industriais.</p>
-  <div class="case-wrap reveal">
-    <div class="case-left">
-      <h3>Empresa industrial de curvamento de tubos</h3>
-      <p>Implementamos um sistema inteligente completo que coleta, processa e analisa dados operacionais em tempo real, gerando relatorios automaticos e auxiliando na tomada de decisoes de qualidade.</p>
-      <div class="case-list">
-        <div class="case-list-item"><span class="case-list-dot"></span> Sensores industriais integrados ao processo</div>
-        <div class="case-list-item"><span class="case-list-dot"></span> Coleta de dados operacionais em tempo real</div>
-        <div class="case-list-item"><span class="case-list-dot"></span> Analise das condicoes de producao com IA</div>
-        <div class="case-list-item"><span class="case-list-dot"></span> Geracao automatica de relatorios de qualidade</div>
-        <div class="case-list-item"><span class="case-list-dot"></span> Avaliacao da margem de erro no curvamento</div>
-      </div>
-    </div>
-    <div class="case-right">
-      <div class="case-metric">
-        <div class="case-metric-label">Inspecao de qualidade</div>
-        <p>Monitoramento continuo substituindo verificacoes manuais sujeitas a falha humana.</p>
-      </div>
-      <div class="case-metric">
-        <div class="case-metric-label">Controle de processo</div>
-        <p>Parametros de curvamento monitorados com base em dados historicos e em tempo real.</p>
-      </div>
-      <div class="case-metric">
-        <div class="case-metric-label">Reducao de margem de erro</div>
-        <p>IA identifica padroes de falha antes que ocorram, prevenindo desperdicio de material.</p>
-      </div>
-      <div class="case-metric">
-        <div class="case-metric-label">Relatorios automatizados</div>
-        <p>Documentacao completa gerada automaticamente, eliminando horas de trabalho manual por turno.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- METODOLOGIA -->
-<section id="metodologia">
-  <p class="section-tag">Como trabalhamos</p>
-  <h2 class="section-title">Metodologia orientada a resultados reais</h2>
-  <p class="section-desc">Do diagnostico profundo ate a melhoria continua — um processo claro e iterativo em cada projeto.</p>
-  <div class="steps-grid">
-    <div class="step-card reveal">
-      <div class="step-num">Etapa 01</div>
-      <h3>Diagnostico Profundo</h3>
-      <p>Compreensao total dos processos, gargalos e oportunidades de melhoria da sua empresa.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">Etapa 02</div>
-      <h3>Arquitetura do Sistema</h3>
-      <p>Desenho da estrutura tecnologica ideal para o contexto e objetivos do seu negocio.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">Etapa 03</div>
-      <h3>Desenvolvimento Agil</h3>
-      <p>Construcao rapida com ferramentas modernas, entregas parciais e validacoes constantes.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">Etapa 04</div>
-      <h3>Implementacao e Evolucao</h3>
-      <p>Acompanhamento continuo, melhorias com base em dados reais e evolucao do sistema.</p>
-    </div>
-  </div>
-</section>
-
-<!-- VALORES -->
-<section id="valores">
-  <p class="section-tag">Nossos valores</p>
-  <h2 class="section-title">O que nos guia em cada projeto</h2>
-  <div class="valores-grid">
-    <div class="valor-item reveal">
-      <h4>Confianca</h4>
-      <p>Construimos relacoes de longo prazo com clientes e parceiros, baseadas em transparencia e comprometimento.</p>
-    </div>
-    <div class="valor-item reveal">
-      <h4>Inteligencia Aplicada</h4>
-      <p>Utilizamos tecnologia e IA de forma pratica para resolver problemas reais, sem complexidade desnecessaria.</p>
-    </div>
-    <div class="valor-item reveal">
-      <h4>Velocidade e Eficiencia</h4>
-      <p>Entregamos solucoes rapidas e funcionais. Resultados mensuraveis antes do projeto terminar.</p>
-    </div>
-    <div class="valor-item reveal">
-      <h4>Hiperpersonalizacao</h4>
-      <p>Cada empresa recebe um sistema desenvolvido para sua realidade. Nenhuma solucao de prateleira.</p>
-    </div>
-    <div class="valor-item reveal">
-      <h4>Transformacao Real</h4>
-      <p>Nossos sistemas nao sao apenas softwares — eles mudam a forma como a empresa opera e decide.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FILOSOFIA -->
-<section id="filosofia">
-  <div class="filosofia-inner">
-    <p class="section-tag">Nossa filosofia</p>
-    <h2 class="section-title">Por que fazemos o que fazemos</h2>
-    <div class="filosofia-quote reveal">
-      Acreditamos que empresas nao precisam apenas de softwares.<br />
-      Elas precisam de sistemas que pensem junto com a empresa.
-    </div>
-    <p style="color:var(--gray2);font-size:0.93rem;">Por isso, cada solucao da GRCode e criada com um proposito claro:</p>
-    <div class="filosofia-tags">
-      <span class="ftag">Organizar dados</span>
-      <span class="ftag">Gerar clareza</span>
-      <span class="ftag">Orientar decisoes</span>
-      <span class="ftag">Aumentar eficiencia</span>
-      <span class="ftag">Transformar operacoes</span>
-    </div>
-  </div>
-</section>
-
-<!-- CONTATO -->
+<!-- ════ CONTATO ════ -->
 <section id="contato">
-  <div class="cta-box reveal">
-    <h2>Pronto para ter um sistema que pensa junto com voce?</h2>
-    <p>Fale com a GRCode e receba um diagnostico personalizado para a sua empresa.</p>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <input type="text" placeholder="Seu nome" required />
-        <input type="email" placeholder="E-mail corporativo" required />
+  <div class="container">
+    <span class="slabel fi">Contato</span>
+    <h2 class="cont-h2 fi">Sua proxima parada nao planejada pode ser a ultima evitavel.</h2>
+    <p class="cont-sub fi">Fale com a GRCode. Avaliamos sua operacao e mostramos o que e possivel antecipar com os dados que voce ja tem.</p>
+    <div class="cont-inner">
+      <form class="fi" onsubmit="handleForm(event)">
+        <div class="form-group">
+          <label for="f-nome">Nome</label>
+          <input type="text" id="f-nome" name="nome" placeholder="Seu nome completo" required />
+        </div>
+        <div class="form-group">
+          <label for="f-empresa">Empresa</label>
+          <input type="text" id="f-empresa" name="empresa" placeholder="Nome da empresa" />
+        </div>
+        <div class="form-group">
+          <label for="f-email">E-mail</label>
+          <input type="email" id="f-email" name="email" placeholder="seu@empresa.com.br" required />
+        </div>
+        <div class="form-group">
+          <label for="f-tel">Telefone</label>
+          <input type="tel" id="f-tel" name="telefone" placeholder="(31) 00000-0000" />
+        </div>
+        <div class="form-group">
+          <label for="f-msg">Mensagem</label>
+          <textarea id="f-msg" name="mensagem" placeholder="Descreva brevemente sua operacao e o principal desafio de manutencao ou visibilidade que voce enfrenta."></textarea>
+        </div>
+        <button type="submit" class="btn btn-white" style="margin-top:8px;">Enviar mensagem</button>
+      </form>
+
+      <div class="fi">
+        <div class="cont-info-item">
+          <span class="cont-info-label">Localizacao</span>
+          <span class="cont-info-val">Pedro Leopoldo<br />Minas Gerais — Brasil</span>
+        </div>
+        <div class="cont-info-item">
+          <span class="cont-info-label">E-mail</span>
+          <span class="cont-info-val">
+            <a href="mailto:contato@grcode.com.br">contato@grcode.com.br</a>
+          </span>
+        </div>
+        <div class="cont-info-item">
+          <span class="cont-info-label">WhatsApp</span>
+          <a href="https://wa.me/5531000000000" class="wa-btn" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Iniciar conversa no WhatsApp
+          </a>
+        </div>
       </div>
-      <div class="form-row">
-        <input type="text" placeholder="Nome da empresa" />
-        <input type="text" placeholder="Segmento de atuacao" />
-      </div>
-      <textarea placeholder="Descreva o processo ou desafio que voce quer resolver..."></textarea>
-      <button type="submit">Solicitar diagnostico gratuito</button>
-    </form>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    <div class="footer-logo">
-      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="32" height="32" rx="7" fill="#0D1117"/>
-        <rect x="5"  y="5"  width="6" height="6" rx="1.5" fill="#3B82F6"/>
-        <rect x="13" y="5"  width="6" height="6" rx="1.5" fill="#22D3EE"/>
-        <rect x="21" y="5"  width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.5"/>
-        <rect x="5"  y="13" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.5"/>
-        <rect x="13" y="13" width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.3"/>
-        <rect x="21" y="13" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.6"/>
-        <rect x="5"  y="21" width="6" height="6" rx="1.5" fill="#3B82F6"/>
-        <rect x="13" y="21" width="6" height="6" rx="1.5" fill="#22D3EE" opacity="0.4"/>
-        <rect x="21" y="21" width="6" height="6" rx="1.5" fill="#3B82F6" opacity="0.7"/>
-      </svg>
-      <span class="footer-logo-text">GR<span>Code</span></span>
+  <div class="footer-inner">
+    <img src="logo-grcode.png" alt="GRCode" style="height:22px;filter:brightness(0) invert(1);opacity:0.55;" />
+    <div class="footer-meta">
+      GRCode Tecnologia Industrial — Pedro Leopoldo, Minas Gerais<br />
+      &copy; 2026 GRCode. Todos os direitos reservados.
     </div>
-    <p>Tecnologia aplicada a transformacao empresarial. Sistemas inteligentes e personalizados para cada negocio.</p>
-  </div>
-  <div class="footer-col">
-    <h5>Empresa</h5>
-    <ul>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#valores">Valores</a></li>
-      <li><a href="#filosofia">Filosofia</a></li>
-    </ul>
-  </div>
-  <div class="footer-col">
-    <h5>Solucoes</h5>
-    <ul>
-      <li><a href="#solucoes">Sistemas personalizados</a></li>
-      <li><a href="#solucoes">Automacao empresarial</a></li>
-      <li><a href="#solucoes">IA aplicada</a></li>
-      <li><a href="#metodologia">Metodologia</a></li>
-      <li><a href="#case">Case industrial</a></li>
-    </ul>
   </div>
 </footer>
-<div class="footer-bottom">
-  <p>&copy; 2026 GRCode. Todos os direitos reservados.</p>
-</div>
 
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    const original = btn.textContent;
-    btn.textContent = 'Mensagem enviada. Entraremos em contato.';
-    btn.style.background = '#059669';
-    btn.style.color = '#fff';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.style.background = '';
-      btn.style.color = '';
-      e.target.reset();
-    }, 4000);
-  }
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
 
-  // scroll reveal
+  // Fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
+      if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target); }
     });
-  }, { threshold: 0.07 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fi').forEach((el, i) => {
+    observer.observe(el);
+  });
 
-  // bottom nav active state
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const bnavLinks = document.querySelectorAll('.bnav-link');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    bnavLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+  // Stagger cards
+  ['prob-grid','sol-grid','res-grid','set-grid','steps-wrap'].forEach(cls => {
+    const grid = document.querySelector('.' + cls);
+    if (!grid) return;
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = (i * 70) + 'ms';
     });
   });
+
+  // Form
+  function handleForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.textContent = 'Mensagem enviada';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.disabled = false;
+      btn.style.opacity = '';
+      e.target.reset();
+    }, 3500);
+  }
 </script>
+
 </body>
 </html>
